@@ -1,4 +1,4 @@
-# <img src='./images/logo.svg' width=90 style="vertical-align:middle" /> SHAREing: High-level performance assessment report
+# <img src='../images/logo.svg' width=90 style="vertical-align:middle" /> SHAREing: High-level performance assessment report
 
 ## Setup Details
 * Program: `stencil-2d`
@@ -68,28 +68,34 @@ For a basic high-level analysis of intra-node performance, we perform a strong s
 
 For this code, we tested with core counts in powers of 2 from 1 to 64.
 
-| Thread count | Time (s) |
-| - | - |
-| 1 | 29.995 |
-| 2 | 18.230 |
-| 4 | 10.740 |
-| 8 | 10.330 |
-| 16 | 9.1307 |
-| 32 | 8.5401 |
-| 64 | 7.4589 |
+| Thread count | Time (s) | Parallel Efficiency |
+| - | - | - |
+| 1 | 29.995 | 1.000 |
+| 2 | 18.230 | 0.823 |
+| 4 | 10.740 | 0.698 |
+| 8 | 10.330 | 0.363 |
+| 16 | 9.1307 | 0.205 |
+| 32 | 8.5401 | 0.110 |
+| 64 | 7.4589 | 0.063 |
 
-By fitting a decaying exponential `a e^(-b t) + c` then doing `1-2b`, we normalise an intra-node efficiency score. 
-This code gets an intra-node score of `0.639`.
+Hence, our 80% threshold is at >=4 cores and our 60% threshold is at >=8. As a proportion of the number of cores available, which is 128 on the node this was run on, this is 0.03 and 0.06.
 
 ## Inter-node Analysis
 For a basic high-level analysis of inter-node performance, we perform a weak scaling by increasing problem size linearly with node allocation.
 
+As this code does not utilise MPI or other inter-node features, this section is not applicable.
+
 ## Summary
 
+The following table collates the results of all above sections. These scores are indicative only, and cannot truly be compared to one another meaningfully without taking into account domain knowledge and methodological differences between them.
 
-| Result | MFLOP/s | 
+| Result | Score | 
 | ----------- | ----------- |
 | CPU | 0.624 |
 | GPU | 0.938 |
 | IO | 1.000 |
-| Intra-node | ? |
+| Intra-node (80%) | 0.03125 |
+
+With that said, from this table and with our knowledge of performance engineering, we would recommend that the CPU variant of the algorithm or the intra-node scaling be examined as potential points where improvements could be made.
+
+# <img src='../images/spiderweb.png' width=500 />
