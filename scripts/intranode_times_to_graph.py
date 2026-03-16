@@ -95,7 +95,7 @@ def parse_args():
     )
 
     #parser.add_argument("-h", "--help", action="help", help="Show this help message and exit")
-    parser.add_argument("--version", action="version", version="%(prog)s 0.1", help="Show program version number and exit")
+    parser.add_argument("--version", action="version", version="%(prog)s 1.0", help="Show program version number and exit")
 
     parser.add_argument("-g", "--graph", action="store_true", help="Generate graph")
     parser.add_argument("-m", "--markdown", action="store_true", help="Generate markdown table")
