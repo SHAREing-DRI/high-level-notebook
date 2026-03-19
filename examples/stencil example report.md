@@ -100,4 +100,4 @@ The following table collates the results of all above sections. These scores are
 
 With that said, from this table and with our knowledge of performance engineering, we would recommend that the CPU variant of the algorithm or the intra-node scaling be examined as potential points where improvements could be made.
 
-# <img src='../images/spiderweb.png' width=500 />
+# <img src='./images/summary.png' width=500 />

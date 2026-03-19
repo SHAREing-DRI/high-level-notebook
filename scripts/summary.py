@@ -8,6 +8,7 @@ import os
 
 from enum import StrEnum, auto
 
+DEFAULT_FILE = "images/summary.png"
 
 class Rubric(StrEnum):
     CPU   = auto()
@@ -92,7 +93,7 @@ def parse_args():
     parser.add_argument("--version", action="version", version="%(prog)s 1.0", help="Show program version number and exit")
 
     parser.add_argument("-b", "--bar", action="store_true", help="Output a bar chart instead of a spiderweb")
-    parser.add_argument("-d", "--default", action="store_true", help="Output to the default file, 'images/summary.png'")
+    parser.add_argument("-d", "--default", action="store_true", help=f"Output to the default file, '{DEFAULT_FILE}'")
     parser.add_argument("-v", "--verbose", action="store_true", help="Print extra debug outputs")
     parser.add_argument("-s", "--stdout-graph", action="store_true", help="Output image data to stdout (useful for piping)")
 
@@ -105,8 +106,8 @@ def parse_args():
     
     if args.default and not args.output:
         if args.verbose:
-            print("STATUS: Setting output to default filepath 'images/intranode.png'")
-        args.output = 'images/intranode.png'
+            print(f"STATUS: Setting output to default filepath '{DEFAULT_FILE}'")
+        args.output = DEFAULT_FILE
 
     return args
 
