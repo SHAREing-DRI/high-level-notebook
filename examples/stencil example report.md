@@ -18,7 +18,7 @@ $ likwid-bench -t peakflops -W S0:64kB:1
 
 The code was benchmarked with
 ```shell
-$ likwid-perfctr -f -C 0 -g FLOPS_DP ./cuda-stream
+$ likwid-perfctr -f -C 0 -g FLOPS_DP ./stencil-2d-cuda
 ```
 
 These yielded a hardware peak performance of `8800.5` MFLOP/s and an actual performance of `5492.5` MFLOP/s. We hence determine this code to have a CPU score of `0.6242`.

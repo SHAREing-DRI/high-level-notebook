@@ -7,14 +7,12 @@ We use a markdown document and set of associated scripts to generate graphs duri
 
 ## Setup
 
-
-
-Very few Python dependencies are required and can be installed locally, or in a virtual
-environment, by running the command 
+Very few Python dependencies are required for the scripts, which can be installed locally, or in a virtual environment, by running the command 
 ```bash
 pip install -r requirements.txt
 ```
-Otherwise, the notebook relies on just a few scripts located in the `scripts` directory.
+
+Once you have cloned the repository, you can fill in the template in `report.md`.
 
 ## Structure of high-level performance assessment
 
@@ -25,7 +23,11 @@ Performance is broken down into 5 main topics
 4. GPU
 5. I/O
 
-Further details of how to conduct each performance measurement are given in the notebook.
+Further details of how to conduct each performance measurement are given in the [guidebook](https://shareing-dri.github.io/performance-assessment/guidebook).
+An example report is included in the `examples` folder.
+
+The Core and I/O rubrics do not require significant calculation to complete so no associated script has been written.
+At the point that this is being written, the GPU and Inter-node rubrics do not yet have a fixed workflow (2026-03-19).
 Below we list the usage of each script for the high-level assessment.
 
 ### `intranode_times_to_graph.py`
@@ -45,13 +47,12 @@ For demonstration purposes, suppose we have the data
 64, 7.4589
 ```
 in a csv file `times.csv`, where the first column is core count and the second is time in seconds.
-If we want to check the graph looks reasonable, we can run wih
+If we want to check the graph looks reasonable, we can run with
 ```
 $ ./scripts/intranode_times_to_graph.py --graph
-Please paste the graph below, ending with an empty line:
 ```
-and paste the data below.
-Now we've checked the graph, we want a markdown table to copy-paste to the report and a graph image output to the default directory.
+and paste the data when it prompts.
+Now we've checked the graph, we can generate a markdown table to copy-paste to the report and a graph image output to the default directory:
 ```
 $ cat times.csv | ./scripts/intranode_times_to_graph.py -gmd --markdown-file=stdout
 ```
@@ -78,7 +79,7 @@ $ ./scripts/intranode_times_to_graph.py --help
 
 Internally, this script contains three useful functions which could be used from other code:
 1. `intranode_times_crit_80_60(times: list[tuple[int, float]]) -> (float, float)` - this calculates the 80% and 60% efficiency points and returns them as a tuple
-2. `intranode_times_to_graph(times: list[tuple[int, float]]) -> plt.Figure`
+2. `intranode_times_to_graph(times: list[tuple[int, float]]) -> plt.Figure` - self-explanatory, generates the graph
 3. `intranode_times_to_markdown(times: list[tuple[int, float]]) -> str` - this renders the core counts and times as a three-column markdown table with core count, time, and parallel efficiency
 
 Each function is passed the times as a list of tuples of core count and time taken.
@@ -97,13 +98,11 @@ It accepts an arbitrary number of rows of "rubric, score".
 
 ## Contributions
 
-This performance assessment is intentionally limited as we want to simply
-capture the performance of software at a *high level*. However, if you have
-ideas of performance metrics which are necessary but missing, or if you find
-any faults with the notebook, please raise an issue.
+This performance assessment is intentionally limited as we want to simply capture the performance of software at a *high level*.
+However, if you have ideas of performance metrics which are necessary but missing, or if you find any faults with the scripts or template, please raise an issue.
 
 ## Acknowledgements
-The initial development of this notebook was implemented by Ben Clark.
+The initial development of the notebook was implemented by Ben Clark.
 Further work on the notebook was undertaken by Thomas Flynn, before it was rewritten as scripts.
 This project has received funding through the UKRI Digital Research Infrastructure Programme under grant UKRI1801 (SHAREing). 
 
