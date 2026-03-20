@@ -4,3 +4,8 @@ topics/.ipynb_checkpoints/*.py
 topics/__pycache__/*.pyc
 
 perf_workbook_venv
+
+examples/*.html
+examples/*.log
+examples/*.pdf
+examples/*.tex

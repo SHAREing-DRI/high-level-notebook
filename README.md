@@ -2,22 +2,17 @@
 
 **This repository is in a very early stage of development**
 
-This repository is part of the [SHAREing](https://shareing-dri.github.io/)
-project and is focused on conducting high-level performance assessments of
-research software. We use a Jupyter notebook as our interface as we see the
-notebook as acting as 'workbook' or 'lab notebook' during the high-level
-assessment.
+This repository is part of the [SHAREing](https://shareing-dri.github.io/) project and is focused on conducting high-level performance assessments of research software.
+We use a markdown document and set of associated scripts to generate graphs during the high-level assessment.
 
 ## Setup
 
-To use the Jupyter notebook to conduct a high-level assessment, very few Python
-dependencies are required and can be installed locally, or in a virtual
-environment, by running the command 
+Very few Python dependencies are required for the scripts, which can be installed locally, or in a virtual environment, by running the command 
 ```bash
 pip install -r requirements.txt
 ```
-Otherwise, the notebook relies on just a few classes which are defined in the
-`topics` directory.
+
+Once you have cloned the repository, you can fill in the template in `report.md`.
 
 ## Structure of high-level performance assessment
 
@@ -28,84 +23,87 @@ Performance is broken down into 5 main topics
 4. GPU
 5. I/O
 
-Further details of how to conduct each performance measurement are given in the
-notebook, however, below we list the main classes and methods currently
-implemented in the high-level assessment.
+Further details of how to conduct each performance measurement are given in the [guidebook](https://shareing-dri.github.io/performance-assessment/guidebook).
+An example report is included in the `examples` folder.
 
-### Core analysis
+The Core and I/O rubrics do not require significant calculation to complete so no associated script has been written.
+At the point that this is being written, the GPU and Inter-node rubrics do not yet have a fixed workflow (2026-03-19).
+Below we list the usage of each script for the high-level assessment.
 
-Core performance analysis is packaged up into the `core_perf` class, which has
-only one method: `core_perf_table`. This method generates a tables with a score
-of the observed compute rate for the application.
+### `intranode_times_to_graph.py`
 
-### Intra-node analysis
+Intra-node performance analysis is located in the `intranode_times_to_graph.py` script.
 
-Intra-node performance analysis is packaged up into the `intra_node_perf`
-class, which has three methods:
-1. `parallel efficiency figure` - this generates a figure of the parallel
-   efficiency against the core count. It also includes amber and red vertical,
-dashed lines, beyond which the parallel efficiency drops below 80% and 60%,
-respectively.
-2. `runtimes_figure` - this generates a figure of the total runtime against the
-   core count.
-3. `intra_node_perf_table` - this generates a table with a score of how
-   effectively the intra-node parallelism scales across the available cores.
-The core counts and runtimes are read into these methods as lists. For
-convenvience the data can be read in as a file, e.g., by using `pandas` like
-```bash
-# read in data
-df = pandas.read_csv('./runtime_data.csv', header=None)
-
-# core count data from first column
-number_of_cores = list(df[df.columns[0]]) 
-# application runtime data from second column
-time = list(df[df.columns[1]])
+When called as a script, it takes data input from the standard input or a unix pipe.
+It can take either CSV or Markdown table as input.
+For demonstration purposes, suppose we have the data
+```csv
+1, 29.995
+2, 18.23
+4, 10.74
+8, 10.33
+16, 9.1307
+32, 8.5401
+64, 7.4589
 ```
-where here we have set up around data with core counts in the first column, and
-associated runtimes in the second column.
+in a csv file `times.csv`, where the first column is core count and the second is time in seconds.
+If we want to check the graph looks reasonable, we can run with
+```
+$ ./scripts/intranode_times_to_graph.py --graph
+```
+and paste the data when it prompts.
+Now we've checked the graph, we can generate a markdown table to copy-paste to the report and a graph image output to the default directory:
+```
+$ cat times.csv | ./scripts/intranode_times_to_graph.py -gmd --markdown-file=stdout
+```
 
-### Inter-node analysis
+The script can also take a Markdown table as input in the same way as it can take CSV.
+For a file `times.md`
+```md
+| Thread count | Time (s) | Parallel Efficiency |
+| - | - | - |
+| 1 | 29.995 | 1.000 |
+| 2 | 18.230 | 0.823 |
+| 4 | 10.740 | 0.698 |
+| 8 | 10.330 | 0.363 |
+| 16 | 9.1307 | 0.205 |
+| 32 | 8.5401 | 0.110 |
+| 64 | 7.4589 | 0.063 |
+```
+it can be passed exactly the same as `times.csv` was.
 
-Inter-node performance analysis is packaged up into the `inter_node_perf`
-class, which has three methods:
-1. `parallel efficiency figure` - this generates a figure of the parallel
-   efficiency against the node count. It also includes amber and red vertical,
-dashed lines, beyond which the parallel efficiency drops below 80% and 60%,
-respectively.
-2. `runtimes_figure` - this generates a figure of the total runtime against the
-   node count.
-3. `inter_node_perf_table` - this generates a table with a score of how
-   effectively the inter-node parallelism scales across the available nodes.
-The node counts and associated runtimes are read into the methods as lists, and
-we can again read these in as above using a module such as `pandas`.
+There are a variety of other usage flags, details of which can be found with
+```shell
+$ ./scripts/intranode_times_to_graph.py --help
+```
 
-### GPU analysis
+Internally, this script contains three useful functions which could be used from other code:
+1. `intranode_times_crit_80_60(times: list[tuple[int, float]]) -> (float, float)` - this calculates the 80% and 60% efficiency points and returns them as a tuple
+2. `intranode_times_to_graph(times: list[tuple[int, float]]) -> plt.Figure` - self-explanatory, generates the graph
+3. `intranode_times_to_markdown(times: list[tuple[int, float]]) -> str` - this renders the core counts and times as a three-column markdown table with core count, time, and parallel efficiency
 
-GPU performance analysis is packaged up into the `gpu_perf` class, which has
-only one method: `gpu_perf_table`. This method generates a tables with a
-measure of the GPU occupancy.
+Each function is passed the times as a list of tuples of core count and time taken.
 
-### I/O analysis
+### `internode_times_to_graph.py`
 
-I/O performance analysis is packaged up into the `io_perf` class, which has
-only one method: `io_perf_table`. This method generates a table with a score of
-the proportion of runtime spent in I/O.
+This script is `TODO`
 
-### Summary diagram
+### `summary.py`
 
-Finally, the `summary_perf` class reads in all 5 of the performance metrics and
-plots these via `plotly` to create a summary radar plot.
+Generation of a summary graphic is located in the `summary.py` script.
+
+When called as a script, it takes data input from the standard input or a unix pipe the same way as the previous scripts.
+It can take either CSV or Markdown table as input.
+It accepts an arbitrary number of rows of "rubric, score".
 
 ## Contributions
 
-This performance assessment is intentionally limited as we want to simply
-capture the performance of software at a *high level*. However, if you have
-ideas of performance metrics which are necessary but missing, or if you find
-any faults with the notebook, please raise an issue.
+This performance assessment is intentionally limited as we want to simply capture the performance of software at a *high level*.
+However, if you have ideas of performance metrics which are necessary but missing, or if you find any faults with the scripts or template, please raise an issue.
 
 ## Acknowledgements
-The initial development of this notebook was implemented by Ben Clark.  This
-project has received funding through the UKRI Digital Research Infrastructure
-Programme under grant UKRI1801 (SHAREing). 
+The initial development of the notebook was implemented by Ben Clark.
+Further work on the notebook was undertaken by Thomas Flynn, before it was rewritten as scripts.
+This project has received funding through the UKRI Digital Research Infrastructure Programme under grant UKRI1801 (SHAREing). 
 
 <img src='./images/ukri.png' width=200 style="vertical-align:middle" /> 
