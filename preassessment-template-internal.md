@@ -25,7 +25,7 @@ A test submission of `<repository/website>`, version `<version_number>` using th
 ## Disclaimers
 
 1. This report is not a commentary on code quality, but an indicator of the quality of the current SHAREing testing methodology as of `<guidance_date>`.
-2. The pre-assessment is only a preliminary assessment of submission suitability and does not guarantee a full assessment. It will be provided to the submitter with information on if the full assessment will be undertaken or detail reasons for rejection.
+2. The pre-assessment is only a preliminary assessment of submission suitability and does not guarantee a full assessment. It will be provided to the submitter indicating if the full assessment will be undertaken or detail reasons for rejection.
 
 ## Table of contents
 
@@ -81,12 +81,17 @@ cd <benchmark_folder>
 mpirun -np 24 <program_executable> <benchmark_name> <output_file>
 ```
 
+### Reference architecture
+
+>[!IMPORTANT]
+> Add details of the reference architecture as provided by the submitter. Add any relevant details you may find regarding the architecture/system online. If the same system is accessible to you for the assessment, then indicate that here and detail the information in the [next section](#hardware-information).
+
 ## 2: Description of working environment
 
 ### Hardware information
 
 >[!IMPORTANT]
-> For systems with different hardware resources, add the hardware information used, including where applicable the queue information if necessary. Comment on expected normal limit for the hardware, e.g. size of the largest interconnected set of nodes, or memory limitations.
+> Add the hardware information used, including where applicable the queue information if necessary. Comment on expected normal limit for the hardware, e.g. size of the largest interconnected set of nodes, or memory limitations. Compare with the reference architecture (if different), indicating any issues you may expect to see due to the differences.
 
 The `<cluster_name>` system based at `<university/organisation>` was used for this assessment.
 
@@ -149,7 +154,7 @@ The hardware details for `<cluster_name>` are `[available at](<URL>)`. This info
 Build instructions from the user `<build_toolchain>` to build the `<program_name>` with `<optimisation_level>`.
 
 >[!tip]
-> MAQAO should present missed compiler optimisation opportunities. Increasing the optimisation level may require re-converging the system to confirm accuracy. This may be outside the scope of the assessment..
+> MAQAO should present missed compiler optimisation opportunities. Increasing the optimisation level may require re-converging the system to confirm accuracy. This may be outside the scope of the assessment.
 
 ## 4: Computational complexity and scaling
 
