@@ -18,14 +18,14 @@ Summary: For assessors working on SHAREing and ARC-Durham.
 ## Assessment objective
 
 >[!IMPORTANT]
-> Is this a test submission, internal review or external review? If part of a larger project or funding, add that information here. You may also include your (the assessor's) name, optionally with contact details.
+> Is this a test submission, internal review or external review? If it is part of a larger project or funding, add that information here. You may also include your (the assessor's) name, optionally with contact details.
 
 A test submission of `<repository/website>`, version `<version_number>` using the `<benchmark_name>` benchmark. This assessment is performed by `<assessor_name>` of `<assessor_affiliation>` on `<assessment_date>`.
 
 ## Disclaimers
 
 1. This report is not a commentary on code quality, but an indicator of the quality of the current SHAREing testing methodology as of `<guidance_date>`.
-2. The pre-assessment is only a preliminary assessment of submission suitability and does not guarantee a full assessment. It will be provided to the submitter with information on if the full-assessment will be undertaken or reasons for rejection.
+2. The pre-assessment is only a preliminary assessment of submission suitability and does not guarantee a full assessment. It will be provided to the submitter with information on if the full assessment will be undertaken or detail reasons for rejection.
 
 ## Table of contents
 
@@ -43,12 +43,12 @@ A test submission of `<repository/website>`, version `<version_number>` using th
 ## 1: Benchmark setup
 
 >[!IMPORTANT]
-> This section should be composed of information provided by the submitter, unless there is a specific issue with compatibility on the machine the assessor is testing on, in which case additional information should be noted.
+> This section should be composed of information provided by the submitter.
 
 ### Fetch and build program
 
 >[!IMPORTANT]
-> Provide commands to fetch and build program. Include version numbers where possible for the main program.
+> Provide commands to fetch and build the program. Include version numbers where possible.
 
 The submitter has requested an assessment of `<repository/program_name>`, version `<version_number`>/branch `<branch_name>`. It can be fetched/installed as follows:
 
@@ -60,10 +60,10 @@ spack install <program_name>@<version_number>
 git clone -p <branch_name> <repository> && make release
 ```
 
->[!IMPORTANT]
-> Provide commands to fetch benchmark unless provided directly by the submitter.
-
 ### Fetch and run benchmark
+
+>[!IMPORTANT]
+> Provide commands to fetch the benchmark. If it is directly provided by the submitter, note that here and provide as an attachment if permitted.
 
 The benchmark can be obtained from:
 
@@ -72,7 +72,7 @@ git clone <benchmark_repository>
 ```
 
 >[!IMPORTANT]
-> Provide instructions on how to run the benchmark and the expected output. This output should be minimal in order to test the performance of the working performance of the program rather than I/O saturation.
+> Provide instructions on how to run the benchmark.
 
 To run the benchmark:
 
@@ -115,28 +115,22 @@ The hardware details for `<cluster_name>` are `[available at](<URL>)`. This info
 ### Assessment tools
 
 > [!IMPORTANT]
-> Limit pre-assessment tools to those with very low runtime. Mostly just focus on whether the program is running as expected. Do not assess the results of the benchmark for correctness as that requires domain-specific knowledge.
+>
+> 1. Limit pre-assessment tools to those with very low runtime. Mostly just focus on whether the program is running as expected. Do not assess the results of the benchmark for correctness as that requires domain-specific knowledge.
+> 2. High level assessment tools and techniques which are expected to be useful, like global measures such as wall time.
+> 3. If additional information is provided, you can address the low-level assessment that may be required, and if you may require privileges on the system. Only address this section if you confident that enough domain information has been provided, with respect to scaling of the compute and memory with the problem size.
 
 1. Pre-assessment:
    - `<tool_1>`
    - `<tool_2>`
 
-> [!IMPORTANT]
-> High level assessment tools and techniques which are expected to be useful, like global measures such as wall time.
-
-<!-- markdownlint-disable MD029 -->
 2. High-level assessment:
    - `<tool_1>`
    - `<tool_2>`
 
->[!IMPORTANT]
-> If additional information is provided, you can address the low-level assessment that may be required, and if you may require privileges on the system. Only address this section if you confident that enough domain information has been provided, with respect to scaling of the compute and memory with the problem size.
-
 3. Low-level assessment:
    - `<tool_1>`
    - `<tool_2>`
-
-<!-- markdownlint-enable MD029 -->
 
 ## 3: Compiler setup and optimisations
 
@@ -150,12 +144,12 @@ The hardware details for `<cluster_name>` are `[available at](<URL>)`. This info
 > - additional accelerator libraries and versions (e.g. SYCL revision 11, Kokkos 5.1)
 > - any feature sets which are toggled on (e.g. vectorisation)
 >
-> Add additional information about the impact of optimisations on convergence or correctness of results if provided by the submitter. Also include any issues you may face when building the program.
+> Add additional information about the impact of optimisations on convergence or correctness of results if provided by the submitter.  If there are any issues with compatibility on the machine you are testing on, or any build issues experienced, provide details
 
 Build instructions from the user `<build_toolchain>` to build the `<program_name>` with `<optimisation_level>`.
 
 >[!tip]
-> MAQAO should present missed compiler optimisation opportunities. Increasing the optimisation level may require re-converging the system to confirm accuracy. This may be outside the scope of the assessment.
+> MAQAO should present missed compiler optimisation opportunities. Increasing the optimisation level may require re-converging the system to confirm accuracy. This may be outside the scope of the assessment..
 
 ## 4: Computational complexity and scaling
 
@@ -179,7 +173,7 @@ According to the submitter, the expected memory required for the benchmark is `<
 The benchmark also outputs files totalling `<storage_size>`MB.
 
 >[!IMPORTANT]
-> Comment on amount of I/O benchmark produces, excessive I/O will result in an inaccurate performance assessment and may result in rejection. Comment on when the I/O is performed.
+> Comment on the expected output, including when the I/O is performed, and your observations when running the benchmark. This output should be minimal when testing the working performance of the program rather than the I/O saturation. Excessive I/O will result in an inaccurate performance assessment and may result in rejection.
 
 The benchmark writes to a file after every `<n>` iterations.
 
