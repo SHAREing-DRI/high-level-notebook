@@ -106,14 +106,18 @@ The `<cluster_name>` system based at `<university/organisation>` was used for th
 
 The hardware details for `<cluster_name>` are `[available at](<URL>)`. This information is corroborated by running `cat /proc/cpuinfo` on one of the compute nodes via an interactive session. There are `<num_nodes>` compute nodes on the system:
 
-| Specification       | per node                                                              |
-| ------------------- | --------------------------------------------------------------------- |
-| Processors          | `<num_procs>` $\times$ `[<processor_name>](<link-to-online-details>)` |
-| Clock speed per CPU | `<freq>`MHz                                                           |
-| Sockets             | `<num_sockets>`                                                       |
-| Cores               | `<num_cores>`                                                         |
-| RAM                 | `<memory_size>`GB `<memory_type>`                                     |
-| Local storage       | `<storage_size>`GB `<storage_type>`                                   |
+>[!IMPORTANT]
+> The table below is an example and should be adapted for "non-standard" architectures, e.g. systems with Grace Hopper nodes. A placeholder for hardware accelerators is provided. For most assessment projects, these are likely to be GPUs (generally Nvidia or AMD). But some cases may also work with FPGAs, ASICs etc. Include any relevant specifications.
+
+| Specification             | Per node                                                              |
+| ------------------------- | --------------------------------------------------------------------- |
+| Processors                | `<num_procs>` $\times$ `[<processor_name>](<link-to-online-details>)` |
+| `<Hardware accelerators>` | `<num_gpus/num_fpgas>`                                                |
+| Clock speed per CPU       | `<freq>`MHz                                                           |
+| Sockets                   | `<num_sockets>`                                                       |
+| Cores                     | `<num_cores>`                                                         |
+| RAM                       | `<memory_size>`GB `<memory_type>`                                     |
+| Local storage             | `<storage_size>`GB `<storage_type>`                                   |
 
 >[!TIP]
 > Add details that you can obtain from the system or online information about sockets, NUMA regions, interconnects and cache sizes.
