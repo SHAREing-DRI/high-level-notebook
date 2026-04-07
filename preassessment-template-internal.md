@@ -43,7 +43,7 @@ A test submission of `<repository/website>`, version `<version_number>` using th
 ## 1: Benchmark setup
 
 >[!IMPORTANT]
-> This section should be composed of information provided by the submitter, unless there is a specific issue with compatibility on the machine the assessor is testing on, in which case additional information should be noted. The [third subsection](#problem-size-scaling) should comment on the suitability of the benchmark in terms of expected capacity for weak/strong scaling.
+> This section should be composed of information provided by the submitter, unless there is a specific issue with compatibility on the machine the assessor is testing on, in which case additional information should be noted.
 
 ### Fetch and build program
 
@@ -80,11 +80,6 @@ To run the benchmark:
 cd <benchmark_folder>
 mpirun -np 24 <program_executable> <benchmark_name> <output_file>
 ```
-
-### Scaling problem size
-
->[!IMPORTANT]
-> Comment on the possibility of scaling the problem up and down, both in strong (changing number of work units e.g. CPUs, but keeping the problem size constant) and weak (changing the problem size but keeping number of work units the same) contexts. If there is existing scaling information (graphs or raw data) available, attach the data to this report or add links.
 
 ## 2: Description of working environment
 
@@ -165,14 +160,9 @@ Build instructions from the user `<build_toolchain>` to build the `<program_name
 ## 4: Computational complexity and scaling
 
 >[!IMPORTANT]
-> Add information about scaling provided by submitter:
+> Comment on the possibility of scaling the problem up and down, both in strong (changing number of work units e.g. CPUs, but keeping the problem size constant) and weak (changing the problem size but keeping number of work units the same) contexts. Add any information provided by the submitter regarding the scaling of _computation (i.e. work)_, _memory_ and _execution time_ as the problem size or work units are increased.
 >
-> - scaling of work required as problem size increases
-> - scaling of memory required as problem size increases
-> - scaling of time required as problem size increases
-> - scaling of work required as work units increases
-> - scaling of memory required as work units increases
-> - scaling of time required as work units increases
+> If there is existing scaling information (graphs or raw data) available, attach it to this report or add links to access it.
 
 The `<parameter>` value can be varied to increase the problem size for scaling tests.
 
