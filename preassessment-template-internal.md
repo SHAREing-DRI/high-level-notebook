@@ -72,13 +72,19 @@ git clone <benchmark_repository>
 ```
 
 >[!IMPORTANT]
-> Provide instructions on how to run the benchmark.
+> Provide instructions on how to run the benchmark and indicate the expected I/O.
 
 To run the benchmark:
 
 ```bash
 cd <benchmark_folder>
 mpirun -np 24 <program_executable> <benchmark_name> <output_file>
+```
+
+The following output is expected every `<n>` iterations:
+
+```txt
+<example-output>
 ```
 
 ### Reference architecture
@@ -180,7 +186,7 @@ The benchmark also outputs files totalling `<storage_size>`MB.
 >[!IMPORTANT]
 > Comment on the expected output, including when the I/O is performed, and your observations when running the benchmark. This output should be minimal when testing the working performance of the program rather than the I/O saturation. Excessive I/O will result in an inaccurate performance assessment and may result in rejection.
 
-The benchmark writes to a file after every `<n>` iterations.
+The benchmark writes to the console output every `<n>` iterations [as indicated by the submitter](#fetch-and-run-benchmark).
 
 ## 6: Additional comments from submitter
 
