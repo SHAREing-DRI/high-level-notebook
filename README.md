@@ -2,7 +2,7 @@
 License: Copyright © 2026 Durham University, SHAREing Project, MIT Licensed
 Creator: Thomas Flynn
 Contributors: Thomas Flynn, Emily Wilkinson
-Summary: High-level assessment report template
+Summary: README file for the SHAREing assessment templates repository
 ---
 
 # <img src='./images/logo.svg' width=90 style="vertical-align:middle" /> SHAREing: High-level performance assessment notebook
